@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+.project-detail-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+.back-to-projects {
+    margin-bottom: 1.5rem;
+}
+
+.back-to-projects a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-to-projects a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 18px rgba(102, 126, 234, 0.3);
+}
+
+.markdown-content h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.markdown-content h2 {
+    font-size: 1.6rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+    padding-bottom: 0.3rem;
+}
+
+.markdown-content h3 {
+    font-size: 1.3rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.markdown-content p {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    margin: 0 0 1.25rem 1.4rem;
+    padding: 0;
+}
+
+.markdown-content li {
+    margin-bottom: 0.4rem;
+}
+
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2.5rem;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.markdown-content th,
+.markdown-content td {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+.markdown-content th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid rgba(102, 126, 234, 0.4);
+    padding-left: 1rem;
+    font-style: italic;
+    color: #495057;
+    margin: 1.5rem 0;
+}
+
+.markdown-content code {
+    background: rgba(15, 23, 42, 0.08);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.markdown-content pre code {
+    display: block;
+    padding: 1.25rem;
+    overflow-x: auto;
+    border-radius: 8px;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+    .project-detail-wrapper {
+        padding: 2rem 1.1rem 3rem;
+    }
+
+    .markdown-content h1 {
+        font-size: 1.9rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="project-detail-wrapper">
+    <div class="back-to-projects">
+        <a href="{{ url_for('projects') }}">← Back to Projects</a>
+    </div>
+    <article id="markdown-content" class="markdown-content"></article>
+</div>
+<script id="markdown-data" type="application/json">{{ markdown_content | tojson }}</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" integrity="sha384-qiTnx3EmeN3ldWSEt5+QWH0Yt3tbG8DSA9u1kR1l4Mq192narE+lhp9wuwIGsy9y" crossorigin="anonymous"></script>
+<script>
+(function() {
+    const container = document.getElementById('markdown-content');
+    const dataEl = document.getElementById('markdown-data');
+    if (!container || !dataEl) {
+        return;
+    }
+
+    try {
+        const rawMarkdown = JSON.parse(dataEl.textContent || '""');
+        const html = marked.parse(rawMarkdown, { mangle: false, headerIds: false });
+        container.innerHTML = html;
+    } catch (error) {
+        console.error('Failed to render markdown', error);
+    }
+})();
+</script>
+{% endblock %}

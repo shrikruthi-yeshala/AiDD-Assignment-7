@@ -1,0 +1,263 @@
+    <main>
+        <div class="productivity-container">
+            <div class="productivity-header">
+                <h2>Daily Productivity Tracking Sheet</h2>
+                <p>Track your daily tasks and productivity metrics</p>
+            </div>
+
+            <form id="productivityForm">
+                <!-- Employee Information -->
+                <div class="employee-info">
+                    <div class="info-group">
+                        <label for="employeeName">Employee Name *</label>
+                        <input type="text" id="employeeName" name="employeeName" required>
+                    </div>
+                    <div class="info-group">
+                        <label for="employeeId">Employee ID *</label>
+                        <input type="text" id="employeeId" name="employeeId" required>
+                    </div>
+                    <div class="info-group">
+                        <label for="department">Department *</label>
+                        <select id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="IT">Information Technology</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Operations">Operations</option>
+                            <option value="Sales">Sales</option>
+                        </select>
+                    </div>
+                    <div class="info-group">
+                        <label for="date">Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                </div>
+
+                <!-- Daily Tasks Section -->
+                <div class="tasks-section">
+                    <h3>Daily Task Completion</h3>
+                    
+                    <!-- Core Work Tasks -->
+                    <div class="task-category">
+                        <h4>Core Work Tasks</h4>
+                        
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Project Development</h5>
+                                <p>Work on assigned development tasks and coding projects</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="project-dev-not" name="projectDev" value="not-started">
+                                    <label for="project-dev-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="project-dev-progress" name="projectDev" value="in-progress">
+                                    <label for="project-dev-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="project-dev-complete" name="projectDev" value="completed">
+                                    <label for="project-dev-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Code Review</h5>
+                                <p>Review and provide feedback on team members' code</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="code-review-not" name="codeReview" value="not-started">
+                                    <label for="code-review-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="code-review-progress" name="codeReview" value="in-progress">
+                                    <label for="code-review-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="code-review-complete" name="codeReview" value="completed">
+                                    <label for="code-review-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Documentation</h5>
+                                <p>Update project documentation and technical specifications</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="documentation-not" name="documentation" value="not-started">
+                                    <label for="documentation-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="documentation-progress" name="documentation" value="in-progress">
+                                    <label for="documentation-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="documentation-complete" name="documentation" value="completed">
+                                    <label for="documentation-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Communication Tasks -->
+                    <div class="task-category">
+                        <h4>Communication & Collaboration</h4>
+                        
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Team Meetings</h5>
+                                <p>Attend scheduled team meetings and stand-ups</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="meetings-not" name="meetings" value="not-started">
+                                    <label for="meetings-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="meetings-progress" name="meetings" value="in-progress">
+                                    <label for="meetings-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="meetings-complete" name="meetings" value="completed">
+                                    <label for="meetings-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Client Communication</h5>
+                                <p>Respond to client emails and update project status</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="client-comm-not" name="clientComm" value="not-started">
+                                    <label for="client-comm-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="client-comm-progress" name="clientComm" value="in-progress">
+                                    <label for="client-comm-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="client-comm-complete" name="clientComm" value="completed">
+                                    <label for="client-comm-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Learning & Development -->
+                    <div class="task-category">
+                        <h4>Learning & Development</h4>
+                        
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Skill Development</h5>
+                                <p>Spend time learning new technologies or improving existing skills</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="skill-dev-not" name="skillDev" value="not-started">
+                                    <label for="skill-dev-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="skill-dev-progress" name="skillDev" value="in-progress">
+                                    <label for="skill-dev-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="skill-dev-complete" name="skillDev" value="completed">
+                                    <label for="skill-dev-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Training Sessions</h5>
+                                <p>Attend training sessions or workshops</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="training-not" name="training" value="not-started">
+                                    <label for="training-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="training-progress" name="training" value="in-progress">
+                                    <label for="training-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="training-complete" name="training" value="completed">
+                                    <label for="training-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Tracking -->
+                <div class="time-tracking">
+                    <h4>Time Tracking</h4>
+                    <div class="time-inputs">
+                        <div class="time-input">
+                            <label for="startTime">Start Time</label>
+                            <input type="time" id="startTime" name="startTime">
+                        </div>
+                        <div class="time-input">
+                            <label for="endTime">End Time</label>
+                            <input type="time" id="endTime" name="endTime">
+                        </div>
+                        <div class="time-input">
+                            <label for="breakTime">Break Duration (minutes)</label>
+                            <input type="number" id="breakTime" name="breakTime" min="0" max="480">
+                        </div>
+                        <div class="time-input">
+                            <label for="productiveHours">Productive Hours</label>
+                            <input type="number" id="productiveHours" name="productiveHours" step="0.5" min="0" max="12">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Section -->
+                <div class="notes-section">
+                    <h3>Daily Notes & Comments</h3>
+                    <textarea id="dailyNotes" name="dailyNotes" placeholder="Add any additional notes about your day, challenges faced, or achievements..."></textarea>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="summary-section">
+                    <h3>Daily Summary</h3>
+                    <p>Review your completed tasks and productivity metrics for today.</p>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="completedTasks">0</div>
+                            <div class="stat-label">Tasks Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="inProgressTasks">0</div>
+                            <div class="stat-label">Tasks In Progress</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalTasks">7</div>
+                            <div class="stat-label">Total Tasks</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="productivityScore">0%</div>
+                            <div class="stat-label">Productivity Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">Submit Daily Report</button>
+                </div>
+            </form>
+        </div>
+    </main>

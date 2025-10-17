@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Add Project - Shrikruthi Yeshala{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h2>Add A Project</h2>
+        <p class="page-subtitle">Capture portfolio updates by saving project details to the SQLite database</p>
+    </div>
+</section>
+
+<section class="contact-content">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>How It Works</h3>
+                <p>Use this form to add projects that should appear on the Projects page. Populate the fields below and the entry is stored instantly.</p>
+
+                <div class="availability">
+                    <h4>Tips</h4>
+                    <ul>
+                        <li><strong>Upload an image</strong> directly from your computer, or reference an existing file in <code>static/images</code>.</li>
+                        <li>Supported formats: JPG, PNG, GIF (max 5MB).</li>
+                        <li>Keep descriptions concise. They render directly inside the projects table.</li>
+                        <li>Add a <strong>detail slug</strong> to link to a full project write-up page.</li>
+                    </ul>
+                </div>
+
+                <div class="availability" style="margin-top: 1.5rem;">
+                    <h4>Need To Remove One?</h4>
+                    <p>Use the delete button on the projects page. Entries disappear immediately.</p>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <h3>Project Details</h3>
+                <form id="projectForm" class="contact-form" action="{{ url_for('contact') }}" method="POST" enctype="multipart/form-data" novalidate>
+                    <div id="formStatus" class="form-alert" role="status" aria-live="polite"></div>
+
+                    <div class="form-group">
+                        <label for="title">Project Title *</label>
+                        <input type="text" id="title" name="title" required value="{{ form_data.title if form_data else '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Short Description *</label>
+                        <textarea id="description" name="description" rows="5" required>{{ form_data.description if form_data else '' }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image_upload">Upload Project Image *</label>
+                        <input type="file" id="image_upload" name="image_upload" accept="image/*" onchange="handleImageUpload(this)">
+                        <span class="helper-text">Upload an image from your computer (JPG, PNG, GIF). Max size: 5MB.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image_file_name">Or Enter Existing Image File Name</label>
+                        <input type="text" id="image_file_name" name="image_file_name" placeholder="example: teams-app-screenshot.jpg" value="{{ form_data.image_file_name if form_data else '' }}">
+                        <span class="helper-text">Already have an image in <code>static/images</code>? Enter its filename here instead of uploading.</span>
+                    </div>
+                    
+                    <div id="imagePreview" style="display: none; margin-bottom: 1.5rem;">
+                        <label>Image Preview:</label>
+                        <div style="margin-top: 0.5rem;">
+                            <img id="previewImg" src="" alt="Preview" style="max-width: 300px; max-height: 200px; border-radius: 8px; border: 2px solid #e9ecef;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="detail_slug">Detail Page Slug (optional)</label>
+                        <input type="text" id="detail_slug" name="detail_slug" placeholder="example: powerbi-dashboard" value="{{ form_data.detail_slug if form_data else '' }}">
+                        <span class="helper-text">If you have a long-form write-up, enter its slug to link readers to <code>/projects/docs/&lt;slug&gt;</code>. Current options: <code>employee-productivity</code>, <code>powerbi-dashboard</code>, <code>sap-enterprise</code>, <code>servicenow-ai</code>, <code>servicenow-platform</code>.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Project</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function handleImageUpload(input) {
+    const preview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const imageFileNameInput = document.getElementById('image_file_name');
+    
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        
+        // Validate file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB');
+            input.value = '';
+            preview.style.display = 'none';
+            return;
+        }
+        
+        // Validate file type
+        if (!file.type.match('image.*')) {
+            alert('Please select an image file');
+            input.value = '';
+            preview.style.display = 'none';
+            return;
+        }
+        
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        
+        // Clear the manual filename input since we're uploading
+        imageFileNameInput.value = '';
+        imageFileNameInput.removeAttribute('required');
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
+// Form validation to ensure either upload or filename is provided
+document.getElementById('projectForm').addEventListener('submit', function(e) {
+    const imageUpload = document.getElementById('image_upload');
+    const imageFileName = document.getElementById('image_file_name');
+    
+    if (!imageUpload.files.length && !imageFileName.value.trim()) {
+        e.preventDefault();
+        alert('Please either upload an image or enter an existing image filename');
+        return false;
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Shrikruthi Yeshala{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h2>Projects</h2>
+        <p class="page-subtitle">Project snapshots maintained in a lightweight SQLite catalog</p>
+    </div>
+</section>
+
+<section class="projects-content">
+    <div class="container">
+        <div class="projects-table-wrapper">
+            <table class="projects-table" role="grid">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Image</th>
+                        <th scope="col" class="actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td data-label="Title">{{ project.title }}</td>
+                        <td data-label="Description">{{ project.description }}</td>
+                        <td data-label="Details" class="details-cell">
+                            {% if project.detail_slug %}
+                                <a class="btn btn-primary" href="{{ url_for('project_detail', slug=project.detail_slug) }}" target="_blank" rel="noopener">View</a>
+                                <div class="detail-slug">/projects/docs/{{ project.detail_slug }}</div>
+                            {% else %}
+                                <span class="no-detail">—</span>
+                            {% endif %}
+                        </td>
+                        <td data-label="Image" class="image-cell">
+                            <img src="{{ url_for('static', filename='images/' ~ project.image_file_name) }}" alt="{{ project.title }} preview" class="project-thumb">
+                            <div class="image-filename">{{ project.image_file_name }}</div>
+                        </td>
+                        <td data-label="Actions" class="actions">
+                            <a href="{{ url_for('delete_confirmation', project_id=project.id) }}" class="btn btn-secondary">Delete</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <p>No projects yet. Add a project to get started.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
