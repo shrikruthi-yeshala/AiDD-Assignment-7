@@ -194,4 +194,8 @@ def project_detail(slug: str) -> str:
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Respect environment variables when running in a container
+    port = int(os.environ.get("PORT", 8000))
+    host = os.environ.get("HOST", "0.0.0.0")
+    debug = os.environ.get("FLASK_DEBUG", "False").lower() in ("1", "true", "yes")
+    app.run(host=host, port=port, debug=debug)
